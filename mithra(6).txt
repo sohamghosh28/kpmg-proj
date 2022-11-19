@@ -1,0 +1,81 @@
+SELECT
+    a.name_of_mitra,
+    a.mitra_contact_number,
+    a.district,
+    a.district_id,
+    a.name_of_hospital,
+    b.specialities
+FROM
+    (
+        SELECT DISTINCT
+            LISTAGG(a.first_name
+            || ' '
+            || a.last_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                a.first_name
+                || ' '
+                || a.last_name
+            ) AS name_of_mitra,
+            LISTAGG(a.cug,
+            ',') WITHIN GROUP(
+            ORDER BY
+                a.cug
+            ) AS mitra_contact_number,
+            d.loc_id AS district_id,
+            d.loc_name AS district,
+            c.hosp_id,
+            c.hosp_name AS name_of_hospital
+        FROM
+            asrim_users a,
+            asrim_mit_users b,
+            asrim_hospitals c,
+            (
+                SELECT
+                    *
+                FROM
+                    asrim_locations
+                WHERE
+                    loc_hdr_id = 'LH6'
+                    AND   loc_state_val = '6'
+                    AND   active_yn = 'Y'
+            ) d
+        WHERE
+            a.user_id = b.user_id
+            AND   b.hosp_id = c.hosp_id
+            AND   c.dist_id = d.loc_id
+            AND   a.user_role = 'CD10'
+            AND   a.active_yn = 'Y'
+            AND   b.eff_end_dt IS NULL
+        GROUP BY
+            d.loc_id,
+            d.loc_name,
+            c.hosp_id,
+            c.hosp_name
+        ORDER BY
+            d.loc_name
+    ) a,
+    (
+        SELECT DISTINCT
+            c.hosp_id,
+            LISTAGG(adm.dis_main_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                  adm.dis_main_name) specialities
+        FROM
+            asrim_hospitals c,
+            asrim_hosp_speciality ahs,
+            asrim_disease_main adm
+        WHERE
+            c.hosp_id = ahs.hosp_id
+            AND   ahs.phase_id = '6'
+            AND   ahs.renewal = '8'
+            AND   ahs.is_active_flg = 'Y'
+            AND   c.isactive_ap = 'Y'
+            and  ahs.speciality_id=adm.dis_main_id
+        GROUP BY
+            c.hosp_id
+    ) b
+WHERE
+    a.hosp_id = b.hosp_id
+    and a.district_id='01';
