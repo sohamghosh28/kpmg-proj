@@ -1,0 +1,25 @@
+SELECT
+d.loc_state_val,
+    case when d.loc_state_val= '7' then 'TELAGANA'
+    when d.loc_state_val= '9' then 'TAMILNADU'
+    when d.loc_state_val= '8' then 'KARNATAKA'
+    when d.loc_state_val= '6' then 'ANDHRA PRADESH'
+    else 'OTHERS' end AS STATE,
+    COUNT(a.user_id) mitra_count
+FROM
+    asrim_users a,
+    asrim_mit_users b,
+    asrim_hospitals c,
+    ( SELECT * FROM asrim_locations
+        WHERE
+            loc_hdr_id = 'LH6'
+            AND   active_yn = 'Y') d
+WHERE
+    a.user_id = b.user_id
+    AND   b.hosp_id = c.hosp_id
+    AND   c.dist_id = d.loc_id
+    AND   a.user_role = 'CD10'
+    AND   a.active_yn = 'Y'
+    AND   b.eff_end_dt IS NULL
+GROUP BY
+    d.loc_state_val;

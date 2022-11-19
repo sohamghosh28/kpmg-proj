@@ -1,0 +1,49 @@
+SELECT DISTINCT
+    a.dis_main_id,
+    upper(b.dis_main_name
+    || ' ( '
+    || a.dis_main_id
+    || ' )') Speciality,
+    SUM(a.surgery_id) procedures_count,
+    SUM(b.hosp_id) hospitals_count
+    
+FROM
+    (
+        SELECT
+            asu.dis_main_id,
+            COUNT(asu.surgery_id) surgery_id
+        FROM
+            asrim_surgery asu
+        WHERE
+            asu.state_flag IN (
+                'AP',
+                'N',
+                'BOTH'
+            )
+            AND   asu.active_yn = 'Y'
+        GROUP BY
+            asu.dis_main_id
+    ) a,
+    (
+        SELECT
+            adm.dis_main_id,
+            adm.dis_main_name,
+            COUNT(ahs.hosp_id) hosp_id
+        FROM
+            asrim_disease_main adm,
+            asrim_hosp_speciality ahs
+        WHERE
+            adm.dis_main_id = ahs.speciality_id
+            AND   adm.dis_active_yn = 'Y'
+            AND   phase_id = '6'
+            AND   renewal = '8'
+            AND   is_active_flg = 'Y'
+        GROUP BY
+            adm.dis_main_id,
+            adm.dis_main_name
+    ) b
+WHERE
+    a.dis_main_id = b.dis_main_id
+GROUP BY
+    b.dis_main_name,
+    a.dis_main_id order by Speciality;
