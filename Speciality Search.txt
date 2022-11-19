@@ -1,0 +1,153 @@
+package in.kpmg.portalsearch.dtos.common;
+
+public class AdvanceCountSpecialitySearch {
+
+	private String specialityid;
+
+	public String getSpecialityid() {
+		return specialityid;
+	}
+
+	public void setSpecialityid(String specialityid) {
+		this.specialityid = specialityid;
+	}
+	
+	
+}
+
+
+
+
+
+package in.kpmg.portalsearch.dtos.common;
+
+public class CountSearchSpecialityResult {
+	
+	private String procedures_count;
+	private String hospitals_count;
+	private String dis_main_id;
+	private String speciality;
+	public String getProcedures_count() {
+		return procedures_count;
+	}
+	public void setProcedures_count(String procedures_count) {
+		this.procedures_count = procedures_count;
+	}
+	public String getHospitals_count() {
+		return hospitals_count;
+	}
+	public void setHospitals_count(String hospitals_count) {
+		this.hospitals_count = hospitals_count;
+	}
+	public String getDis_main_id() {
+		return dis_main_id;
+	}
+	public void setDis_main_id(String dis_main_id) {
+		this.dis_main_id = dis_main_id;
+	}
+	public String getSpeciality() {
+		return speciality;
+	}
+	public void setSpeciality(String speciality) {
+		this.speciality = speciality;
+	}
+
+}
+
+
+
+@SuppressWarnings("unchecked")
+	public List<CountSearchSpecialityResult> advanceCountSpecialitySearch(AdvanceCountSpecialitySearch request) {
+		
+		String nativeQuery="SELECT DISTINCT\n"
+				+ "    a.dis_main_id,\n"
+				+ "    upper(b.dis_main_name\n"
+				+ "    || ' ( '\n"
+				+ "    || a.dis_main_id\n"
+				+ "    || ' )') speciality,\n"
+				+ "    SUM(a.surgery_id) procedures_count,\n"
+				+ "    SUM(b.hosp_id) hospitals_count\n"
+				+ "    \n"
+				+ "FROM\n"
+				+ "    (\n"
+				+ "        SELECT\n"
+				+ "            asu.dis_main_id,\n"
+				+ "            COUNT(asu.surgery_id) surgery_id\n"
+				+ "        FROM\n"
+				+ "            asrim_surgery asu\n"
+				+ "        WHERE\n"
+				+ "            asu.state_flag IN (\n"
+				+ "                'AP',\n"
+				+ "                'N',\n"
+				+ "                'BOTH'\n"
+				+ "            )\n"
+				+ "            AND   asu.active_yn = 'Y'\n"
+				+ "        GROUP BY\n"
+				+ "            asu.dis_main_id\n"
+				+ "    ) a,\n"
+				+ "    (\n"
+				+ "        SELECT\n"
+				+ "            adm.dis_main_id,\n"
+				+ "            adm.dis_main_name,\n"
+				+ "            COUNT(ahs.hosp_id) hosp_id\n"
+				+ "        FROM\n"
+				+ "            asrim_disease_main adm,\n"
+				+ "            asrim_hosp_speciality ahs\n"
+				+ "        WHERE\n"
+				+ "            adm.dis_main_id = \n";
+		if (request.getSpecialityid() != null)
+			nativeQuery = nativeQuery + "'"+request.getSpecialityid()+ "'";
+		nativeQuery=nativeQuery
+				+ "            AND   adm.dis_active_yn = 'Y'\n"
+				+ "            AND   phase_id = '6'\n"
+				+ "            AND   renewal = '8'\n"
+				+ "            AND   is_active_flg = 'Y'\n"
+				+ "        GROUP BY\n"
+				+ "            adm.dis_main_id,\n"
+				+ "            adm.dis_main_name\n"
+				+ "    ) b\n"
+				+ "WHERE\n"
+				+ "    a.dis_main_id = b.dis_main_id\n"
+				+ "GROUP BY\n"
+				+ "    b.dis_main_name,\n"
+				+ "    a.dis_main_id order by speciality";
+		
+		Query query = em.createNativeQuery(nativeQuery, CountSearchSpecialityResult.class);
+
+		List<CountSearchSpecialityResult> searchResults = query.getResultList();
+				
+		return searchResults;
+				
+			
+				
+	}
+
+
+
+
+	@PostMapping("/count-specialitysearch")
+	public ApiResponse<?> advanceCountSpecialitySearch(@RequestBody AdvanceCountSpecialitySearch request) {
+    
+		try {
+			List<CountSearchSpecialityResult> results= pubServ.advanceCountSpecialitySearch(request);
+			if (results.size() > 0)
+			{
+				JSONArray jsonData = new JSONArray();
+				for(CountSearchSpecialityResult position: results){
+					JSONArray jsonArray = new JSONArray();
+					jsonArray.put(position.getProcedures_count());
+	                jsonArray.put(position.getHospitals_count());
+	                jsonData.put(jsonArray);
+				}
+				return new ApiResponse<>(true,"Search result found", jsonData.toString());
+			}
+			else {
+				return new ApiResponse<>(false, "Search Results Not found.", null);
+			}
+		}
+		catch (Exception ex) {
+			return new ApiResponse<>(eService.reportError(ex));
+		}
+		
+}
+
