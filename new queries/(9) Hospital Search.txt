@@ -1,0 +1,122 @@
+SELECT
+    ah.hosp_name,
+    ah.hosp_type,
+    ah.hosp_addr1
+    || ' '
+    || ah.hosp_addr2
+    || ' '
+    || ah.hosp_addr3 address,
+    al.loc_name district,
+    spec.specialities_mapped,
+    ah.crt_dt hospempnl_date,
+    medco.medco_name,
+    medco.medco_contact,
+    mit.mithra_name,
+    mit.mithra_contact
+FROM
+    asrim_hospitals ah,
+    asrit_empnl_hospinfo aeh,
+    asrim_locations al,
+    (
+        SELECT
+            hosp_id,
+            LISTAGG(dis_main_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                dis_main_name
+            ) specialities_mapped
+        FROM
+            (
+                SELECT DISTINCT
+                    ahs.hosp_id,
+                    adm.dis_main_name
+                FROM
+                    asrim_hosp_speciality ahs,
+                    asrim_phase_duration apd,
+                    asrim_disease_main adm,
+                    asrim_hospitals ah
+                WHERE
+                    ahs.phase_id = apd.phase_id
+                    AND   ahs.renewal = apd.renewal
+                    AND   apd.end_dt > SYSDATE
+                    AND   ahs.is_active_flg = 'Y'
+                    AND   ahs.hosp_id = ah.hosp_id
+                    AND   ah.isactive_ap = 'Y'
+                    --AND   ahs.speciality_id = 'S10'
+                    AND   ahs.speciality_id = adm.dis_main_id
+            )
+        GROUP BY
+            hosp_id
+    ) spec,
+    (
+        SELECT
+            hosp_id,
+            LISTAGG(mithra_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                mithra_name
+            ) mithra_name,
+            LISTAGG(cug,
+            ',') WITHIN GROUP(
+            ORDER BY
+                cug
+            ) mithra_contact
+        FROM
+            (
+                SELECT DISTINCT
+                    hosp_id,
+                    au.first_name
+                    || ' '
+                    || au.last_name mithra_name,
+                    au.cug
+                FROM
+                    asrim_mit_users amu,
+                    asrim_users au
+                WHERE
+                    amu.user_id = au.user_id
+                    AND   amu.eff_end_dt IS NULL
+            )
+        GROUP BY
+            hosp_id
+    ) mit,
+    (
+        SELECT
+            hosp_id,
+            LISTAGG(medco_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                medco_name
+            ) medco_name,
+            LISTAGG(cug,
+            ',') WITHIN GROUP(
+            ORDER BY
+                cug
+            ) medco_contact
+        FROM
+            (
+                SELECT DISTINCT
+                    hosp_id,
+                    au.first_name
+                    || ' '
+                    || au.last_name medco_name,
+                    au.cug
+                FROM
+                    asrim_nwh_users amu,
+                    asrim_users au
+                WHERE
+                    amu.user_id = au.user_id
+                    AND   amu.eff_end_dt IS NULL
+            )
+        GROUP BY
+            hosp_id
+    ) medco
+WHERE
+    ah.hosp_empnl_ref_num = aeh.hospinfo_id
+    AND   ah.hosp_active_yn = 'Y'
+    AND   ah.dist_id = al.loc_id (+)
+    AND   al.loc_hdr_id = 'LH6'
+    AND   spec.hosp_id  = ah.hosp_id
+    AND   mit.hosp_id (+) = ah.hosp_id
+    AND   medco.hosp_id (+) = ah.hosp_id
+ORDER BY
+    HOSP_NAME;
