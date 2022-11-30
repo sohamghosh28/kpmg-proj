@@ -1,0 +1,112 @@
+SELECT loc_state_val,
+    state,
+    SUM(nvl(govt,0) ) govt,
+    SUM(nvl(private,0) ) private
+FROM
+    (
+        SELECT b.loc_state_val,
+                CASE
+                    WHEN b.loc_state_val = '6'   THEN 'AdnhraPradesh'
+                END
+            AS state,
+                CASE
+                    WHEN hosp_type = 'G'   THEN COUNT(a.hosp_id)
+                END
+            AS govt,
+                CASE
+                    WHEN hosp_type = 'C'   THEN COUNT(a.hosp_id)
+                END
+            AS private
+        FROM
+            asrim_hospitals a,
+            asrim_locations b
+        WHERE
+            a.dist_id = b.loc_id
+            AND   b.loc_hdr_id = 'LH6'
+            AND   b.loc_state_val = '6'
+            AND   a.isactive_ap = 'Y'
+        GROUP BY
+            loc_state_val,
+            hosp_type,
+            b.loc_state_val
+        UNION
+        SELECT  b.loc_state_val,
+                CASE
+                    WHEN b.loc_state_val = '7'   THEN 'Telangana'
+                END
+            AS state,
+                CASE
+                    WHEN hosp_type = 'G'   THEN COUNT(a.hosp_id)
+                END
+            AS govt,
+                CASE
+                    WHEN hosp_type = 'C'   THEN COUNT(a.hosp_id)
+                END
+            AS private
+        FROM
+            asrim_hospitals a,
+            asrim_locations b
+        WHERE
+            a.dist_id = b.loc_id
+            AND   b.loc_hdr_id = 'LH6'
+            AND   b.loc_state_val = '7'
+            AND   a.isactive_ap = 'Y'
+        GROUP BY
+            loc_state_val,
+            hosp_type,
+            b.loc_state_val
+        UNION
+        SELECT  b.loc_state_val,
+                CASE
+                    WHEN b.loc_state_val = '8'   THEN 'Karnataka'
+                END
+            AS state,
+                CASE
+                    WHEN hosp_type = 'G'   THEN COUNT(a.hosp_id)
+                END
+            AS govt,
+                CASE
+                    WHEN hosp_type = 'C'   THEN COUNT(a.hosp_id)
+                END
+            AS private
+        FROM
+            asrim_hospitals a,
+            asrim_locations b
+        WHERE
+            a.dist_id = b.loc_id
+            AND   b.loc_hdr_id = 'LH6'
+            AND   b.loc_state_val = '8'
+            AND   a.isactive_ap = 'Y'
+        GROUP BY
+            loc_state_val,
+            hosp_type,
+            b.loc_state_val
+        UNION
+        SELECT  b.loc_state_val,
+                CASE
+                    WHEN b.loc_state_val = '9'   THEN 'Chennai'
+                END
+            AS state,
+                CASE
+                    WHEN hosp_type = 'G'   THEN COUNT(a.hosp_id)
+                END
+            AS govt,
+                CASE
+                    WHEN hosp_type = 'C'   THEN COUNT(a.hosp_id)
+                END
+            AS private
+        FROM
+            asrim_hospitals a,
+            asrim_locations b
+        WHERE
+            a.dist_id = b.loc_id
+            AND   b.loc_hdr_id = 'LH6'
+            AND   b.loc_state_val = '9'
+            AND   a.isactive_ap = 'Y'
+        GROUP BY
+            loc_state_val,
+            hosp_type,
+            b.loc_state_val
+    )
+GROUP BY
+    state,loc_state_val;
