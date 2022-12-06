@@ -1,0 +1,138 @@
+SELECT DISTINCT
+    ah.hosp_name,
+    ah.hosp_type,
+    ah.hosp_addr1
+    || ' '
+    || ah.hosp_addr2
+    || ' '
+    || ah.hosp_addr3 address,
+    case when als.loc_state_val= '7' then 'TELAGANA'
+    when als.loc_state_val= '9' then 'TAMILNADU'
+    when als.loc_state_val= '8' then 'KARNATAKA'
+    when als.loc_state_val= '6' then 'ANDHRA PRADESH'
+    else 'OTHERS' end AS STATE,  
+    al.loc_name district,
+    alss.loc_name as mandal,      
+    LISTAGG(spec.dis_main_name,',') WITHIN GROUP (ORDER BY dis_main_name) AS specialities_mapped,
+    ah.crt_dt hospempnl_date,
+    medco.medco_name,
+    medco.medco_contact,
+    mit.mithra_name,
+    mit.mithra_contact
+FROM
+    asrim_hospitals ah,
+    asrim_locations al,
+    ASRIM_LOCATIONS als,
+    asrit_empnl_hospinfo aeh,
+    ASRIM_LOCATIONS alss,
+    (SELECT DISTINCT
+                    ahs.hosp_id,
+                    adm.dis_main_name,
+                    SPECIALITY_ID
+                FROM
+                    asrim_hosp_speciality ahs,
+                    asrim_phase_duration apd,
+                    asrim_disease_main adm,
+                    asrim_hospitals ah
+                WHERE
+                    ahs.phase_id = apd.phase_id
+                    AND   ahs.renewal = apd.renewal
+                    AND   apd.end_dt > SYSDATE
+                    AND   ahs.is_active_flg = 'Y'
+                    AND   ahs.hosp_id = ah.hosp_id
+                    AND   ah.isactive_ap = 'Y'
+                    AND   ahs.speciality_id = adm.dis_main_id
+    ) spec,
+    (
+        SELECT
+            hosp_id,
+            LISTAGG(mithra_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                mithra_name
+            ) mithra_name,
+            LISTAGG(cug,
+            ',') WITHIN GROUP(
+            ORDER BY
+                cug
+            ) mithra_contact
+        FROM
+            (
+                SELECT DISTINCT
+                    hosp_id,
+                    au.first_name
+                    || ' '
+                    || au.last_name mithra_name,
+                    au.cug
+                FROM
+                    asrim_mit_users amu,
+                    asrim_users au
+                WHERE
+                    amu.user_id = au.user_id
+                    AND   amu.eff_end_dt IS NULL
+            )
+        GROUP BY
+            hosp_id
+    ) mit,
+    (
+        SELECT
+            hosp_id,
+            LISTAGG(medco_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                medco_name
+            ) medco_name,
+            LISTAGG(cug,
+            ',') WITHIN GROUP(
+            ORDER BY
+                cug
+            ) medco_contact
+        FROM
+            (
+                SELECT DISTINCT
+                    hosp_id,
+                    au.first_name
+                    || ' '
+                    || au.last_name medco_name,
+                    au.cug
+                FROM
+                    asrim_nwh_users amu,
+                    asrim_users au
+                WHERE
+                    amu.user_id = au.user_id
+                    AND   amu.eff_end_dt IS NULL
+            )
+        GROUP BY
+            hosp_id
+    ) medco
+WHERE
+         ah.ISACTIVE_AP = 'Y'
+    AND   ah.dist_id = al.loc_id (+)
+    AND   al.loc_hdr_id = 'LH6'
+    AND   spec.hosp_id(+) = ah.hosp_id
+    AND   mit.hosp_id (+) = ah.hosp_id
+    AND   medco.hosp_id (+) = ah.hosp_id
+    AND   ah.DIST_ID=als.LOC_ID
+    and   als.loc_hdr_id = 'LH6'
+   -- and   spec.SPECIALITY_ID = 'S14'
+   and ah.HOSP_EMPNL_REF_NUM=aeh.HOSPINFO_ID
+   and aeh.MANDAL=alss.loc_id(+)
+    GROUP BY ah.hosp_name,
+    ah.hosp_type,
+    ah.hosp_addr1
+    || ' '
+    || ah.hosp_addr2
+    || ' '
+    || ah.hosp_addr3,
+    al.loc_name ,
+    ah.crt_dt,
+    medco.medco_name,
+    medco.medco_contact,
+    mit.mithra_name,
+    mit.mithra_contact,
+    case when als.loc_state_val= '7' then 'TELAGANA'
+    when als.loc_state_val= '9' then 'TAMILNADU'
+    when als.loc_state_val= '8' then 'KARNATAKA'
+    when als.loc_state_val= '6' then 'ANDHRA PRADESH'
+    else 'OTHERS' END,
+    alss.loc_name;

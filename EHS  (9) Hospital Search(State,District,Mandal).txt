@@ -1,0 +1,151 @@
+SELECT DISTINCT
+    es.hosp_name,
+    es.hosp_type,
+    els.loc_name as state,
+    el.loc_name AS district,
+    elss.loc_name as mandal,
+    es.HOUSE_NO',' es.STREET  address,
+    LISTAGG(dis_main_name,',') WITHIN GROUP(ORDER BY dis_main_name) AS specialities,
+    name_of_medco,
+    medco_contact_number,
+    name_of_mitra,
+    mitra_contact_number
+FROM
+    ehfm_hospitals es,
+    ehfm_locations el,
+    EHFM_LOCATIONS els,
+    ehf_empnl_hospinfo eeh,
+    EHFM_LOCATIONS elss,
+    (
+        SELECT DISTINCT
+            ehs.hosp_id,
+            LISTAGG(eu.first_name
+             ' '
+             eu.middle_name
+             ' '
+             eu.last_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                eu.first_name
+                 ' '
+                 eu.middle_name
+                 ' '
+                 eu.last_name
+            ) AS name_of_mitra,
+            LISTAGG(eu.mobile_no,
+            ',') WITHIN GROUP(
+            ORDER BY
+                eu.mobile_no
+            ) AS mitra_contact_number
+        FROM
+            ehfm_hosp_mithra_dtls ehmd,
+            ehfm_users eu,
+            ehfm_hospitals ehs
+        WHERE
+            ehmd.end_dt IS NULL
+            AND   ehmd.scheme = 'CD201'
+            AND   eu.service_flg = 'Y'
+            AND   eu.user_type = 'CD201'
+            AND   ehmd.mithra_id = eu.user_id
+            AND   ehs.hosp_id = ehmd.hosp_id
+            AND   ehs.hosp_active_yn = 'Y'
+            AND   ehs.scheme = 'CD201'
+            AND   ehs.hosp_type IN (
+                'G',
+                'C'
+            )
+        GROUP BY
+            ehs.hosp_id
+    ) ehmd,
+    (
+        SELECT DISTINCT
+            ehs.hosp_id,
+            LISTAGG(eu.first_name
+             ' '
+             eu.middle_name
+             ' '
+             eu.last_name,
+            ',') WITHIN GROUP(
+            ORDER BY
+                eu.first_name
+                 ' '
+                 eu.middle_name
+                 ' '
+                 eu.last_name
+            ) AS name_of_medco,
+            LISTAGG(eu.mobile_no,
+            ',') WITHIN GROUP(
+            ORDER BY
+                eu.mobile_no
+            ) AS medco_contact_number
+        FROM
+            ehfm_medco_dtls ehmd,
+            ehfm_users eu,
+            ehfm_hospitals ehs
+        WHERE
+            ehmd.end_dt IS NULL
+            AND   ehmd.scheme = 'CD201'
+            AND   eu.service_flg = 'Y'
+            AND   eu.user_type = 'CD201'
+            AND   ehmd.medco_id = eu.user_id
+            AND   ehs.hosp_id = ehmd.hosp_id
+            AND   ehs.hosp_active_yn = 'Y'
+            AND   ehs.scheme = 'CD201'
+            AND   ehs.hosp_type IN (
+                'G',
+                'C'
+            )
+        GROUP BY
+            ehs.hosp_id
+    ) emd,
+    (
+        SELECT DISTINCT
+            ehs.hosp_id,
+            ess.dis_main_name,
+            ess.dis_main_id
+        FROM
+            ehfm_hosp_speciality ehs,
+            ehfm_specialities ess,
+            ehfm_hospitals eh
+        WHERE
+            ehs.is_active_flg = 'Y'
+            AND   ehs.phase_id = '1'
+            AND   ehs.renewal = '1'
+            AND   ehs.scheme_id = 'CD201'
+            AND   ess.dis_main_id = ehs.icd_cat_code
+            AND   ess.dis_active_yn = 'Y'
+            AND   ehs.hosp_id = eh.hosp_id
+            AND   eh.hosp_active_yn = 'Y'
+            AND   eh.scheme = 'CD201'
+            AND   eh.hosp_type IN (
+                'G',
+                'C'
+            )
+    ) ehs
+WHERE
+    es.hosp_dist = el.loc_id
+    AND   es.hosp_active_yn = 'Y'
+    AND   es.scheme = 'CD201'
+    AND   el.loc_hdr_id = 'LH6'
+    AND   es.hosp_type IN (
+        'G',
+        'C'
+    )
+    AND   ehs.hosp_id (+) = es.hosp_id
+    AND   es.hosp_id = ehmd.hosp_id (+)
+    AND   es.hosp_id = emd.hosp_id (+)
+    --AND   dis_main_id='S18'
+    and es.STATE_CODE=els.loc_id
+    and es.HOSP_EMPNL_REF_NUM=eeh.HOSPINFO_ID
+    and eeh.MANDAL=elss.loc_id(+)
+GROUP BY
+    es.hosp_name,
+    es.hosp_type,
+    el.loc_name,
+    es.house_no',' es.street,
+    name_of_medco,
+    medco_contact_number,
+    name_of_mitra,
+    mitra_contact_number,
+    els.loc_name,
+    elss.loc_name;
