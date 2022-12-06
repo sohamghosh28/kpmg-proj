@@ -1,0 +1,32 @@
+SELECT district_id,
+    district,
+    SUM(nvl(govt,0) ) govt,
+    SUM(nvl(private,0) ) private
+FROM
+    (
+        SELECT b.loc_id as district_id,
+            b.loc_name district,
+            CASE
+                    WHEN hosp_type = 'G' THEN COUNT(a.hosp_id)
+                END
+            AS govt,
+            CASE
+                    WHEN hosp_type = 'C' THEN COUNT(a.hosp_id)
+                END
+            AS private
+        FROM
+            asrim_hospitals a,
+            asrim_locations b
+        WHERE
+            a.dist_id = b.loc_id
+            AND   b.loc_hdr_id = 'LH6'
+            --AND   b.loc_state_val = '6'
+            AND   a.isactive_ap = 'Y'
+        GROUP BY
+            b.loc_name,
+            hosp_type,
+            b.loc_id
+    )
+GROUP BY
+    district,district_id
+    order by district;
