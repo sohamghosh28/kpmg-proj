@@ -1,0 +1,97 @@
+********************************ASRI urls*************************************
+
+1.localhost:8091/portalsearchapi/public-asri/searchHospital - POST
+{
+    "districtid":"03"
+}
+
+2. localhost:8091/portalsearchapi/public-asri/searchProcedure - POST
+
+{
+    "surgeryid":"M1.8"
+}
+
+3.localhost:8091/portalsearchapi/public-asri/hospital-statewisecount - GET
+4.localhost:8091/portalsearchapi/public-asri/hospital-districtwisecount -POST
+{
+"stateVal":"6"
+}
+5.localhost:8091/portalsearchapi/public-asri/specialitysearchcount - POST
+{
+    "specialityId":"S7"
+}
+
+6.localhost:8091/portalsearchapi/public-asri/statelist - GET
+7.localhost:8091/portalsearchapi/public-asri/districtlist - POST
+{
+    "stateId":"6"
+}
+
+8.localhost:8091/portalsearchapi/public-asri/mandallist - POST
+{
+    "districtId":"01"
+}
+
+
+
+
+*********************************AR urls**************************************
+
+
+1.localhost:8092/portalsearchapi/public-ar/searchHospital   - POST
+{
+    "districtid":"03"
+}
+
+2. localhost:8092/portalsearchapi/public-ar/searchprocedure    - POST
+
+{
+    "surgeryid":"M1.8"
+}
+
+3.localhost:8092/portalsearchapi/public-ar/hospital-statewisecount   - GET
+4.localhost:8092/portalsearchapi/public-ar/hospital-districtwisecount   -POST
+{
+"stateVal":"6"
+}
+5.localhost:8092/portalsearchapi/public-ar/specialitysearchcount   - POST
+{
+    "specialityId":"S7"
+}
+
+6.localhost:8092/portalsearchapi/public-ar/statelist   - GET
+7.localhost:8092/portalsearchapi/public-ar/districtlist    - POST
+{
+    "stateId":"6"
+}
+
+8.localhost:8092/portalsearchapi/public-ar/mandallist   - POST
+{
+    "districtId":"01"
+}
+
+********************************EHS urls**************************************
+
+1. POST: localhost:8093/ehsportalsearchapi/public-ehs/searchHospital
+{
+"districtid":null
+}
+2. GET:  localhost:8093/ehsportalsearchapi/public-ehs/searchProcedure
+3. GET:  localhost:8093/ehsportalsearchapi/public-ehs/hospital-statewisecount
+4. POST: localhost:8093/ehsportalsearchapi/public-ehs/hospital-districtwisecount
+{
+"stateVal":"S17"
+}
+5. POST: localhost:8093/ehsportalsearchapi/public-ehs/specialitysearchcount
+{
+"specialityId":null
+}
+6. GET:  localhost:8093/ehsportalsearchapi/public-ehs/statelist
+7. POST: localhost:8093/ehsportalsearchapi/public-ehs/districtlist
+{
+"stateId":"S17"
+}
+8. POST: localhost:8093/ehsportalsearchapi/public-ehs/mandallist
+{
+"districtId":"51"
+}
