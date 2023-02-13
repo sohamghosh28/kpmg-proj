@@ -1,0 +1,183 @@
+SELECT
+    dis_main_id AS specialityCode,
+    dis_main_name AS specialityName,
+    surgery_id as surgeryId,
+    surgery_desc procedureName,
+    proc_type AS procedureType,
+    nvl(hosp_stay_amt,0) + nvl(common_cat_amt,0) + nvl(icd_amt,0) AS packageAmount,
+    aasara_amout aasaraAmt,
+    replace(a.preinvestigations,',',', <br/>') preInvestigations,
+    replace(a.postinvestigations,',',', <br/>') postInvestigations,
+    replace(a.medinvestigations,',',', <br/>') medInvestigations
+FROM
+    (
+        SELECT DISTINCT
+            ad.dis_main_id,
+            ad.dis_main_name,
+            ads.dis_sub_id,
+            ads.dis_name,
+            ac.surgery_id,
+            ac.surg_disp_code,
+            ac.surgery_desc,
+            proc_type,
+            nvl(ac.hosp_stay_amt,ac.hosp_stay_amt) hosp_stay_amt,
+            nvl(ac.common_surgery_amt,ac.common_surgery_amt) common_cat_amt,
+            nvl(ac.buffer_amt,ac.buffer_amt) icd_amt,
+            ac.postops_amt aasara_amout,
+            ac.duration_of_stay,
+            hosp_stay_amt_govt,
+            ac.is_perdm,
+            preinvest.details preinvestigations,
+            postinvest.details postinvestigations,
+            medinvest.details medinvestigations
+        FROM
+            asrim_disease_main ad,
+            asrim_disease_sub ads,
+            asrim_surgery ac,
+            (
+                SELECT
+                    surgery_id,
+                    dstring_agg(invest_desc) AS details
+                FROM
+                    asrim_surgery_invest_ap asi
+                WHERE
+                    asi.active_yn (+) = 'Y'
+                    AND   upper(asi.pre_or_post_op) IN (
+                        'PRE'
+                    )
+                GROUP BY
+                    surgery_id
+            ) preinvest,
+            (
+                SELECT
+                    surgery_id,
+                    dstring_agg(invest_desc) AS details
+                FROM
+                    asrim_surgery_invest_ap asi
+                WHERE
+                    asi.active_yn (+) = 'Y'
+                    AND   upper(asi.pre_or_post_op) IN (
+                        'POST'
+                    )
+                GROUP BY
+                    surgery_id
+            ) postinvest,
+            (
+                SELECT
+                    surgery_id,
+                    dstring_agg(invest_desc) AS details
+                FROM
+                    asrim_surgery_invest_ap asi
+                WHERE
+                    asi.active_yn (+) = 'Y'
+                    AND   upper(asi.pre_or_post_op) IN (
+                        'MED'
+                    )
+                GROUP BY
+                    surgery_id
+            ) medinvest
+        WHERE
+            ad.dis_main_id = ads.dis_main_id
+            AND   ad.dis_main_id = ac.dis_main_id
+            AND   ads.dis_sub_id = ac.dis_sub_id
+            AND   preinvest.surgery_id (+) = ac.surgery_id
+            AND   postinvest.surgery_id (+) = ac.surgery_id
+            AND   medinvest.surgery_id (+) = ac.surgery_id
+            AND   ac.active_yn = 'Y'
+            AND   ad.dis_active_yn = 'Y'
+            AND   PREAUTH_DISPLAY='Y'
+            AND   ac.state_flag IN (
+                'BOTH',
+                'AP',
+                'N'
+            )
+            AND   ac.surgery_id != 'M6.5'
+        UNION
+        SELECT DISTINCT
+            ad.dis_main_id,
+            ad.dis_main_name,
+            ads.dis_sub_id,
+            ads.dis_name,
+            ac.surgery_id,
+            ac.surg_disp_code,
+            ac.surgery_desc,
+            proc_type,
+            nvl(ac.hosp_stay_amt,0) hosp_stay_amt,
+            nvl(ac.common_surgery_amt,0) common_cat_amt,
+            nvl(ac.buffer_amt,0) icd_amt,
+            ac.postops_amt aasara_amout,
+            ac.duration_of_stay,
+            hosp_stay_amt_govt,
+            ac.is_perdm,
+            preinvest.details preinvestigations,
+            postinvest.details postinvestigations,
+            medinvest.details medinvestigations
+        FROM
+            asrim_disease_main ad,
+            asrim_disease_sub ads,
+            asrim_surgery ac,
+
+(
+                SELECT
+                    surgery_id,
+                    dstring_agg(invest_desc) AS details
+                FROM
+                    asrim_surgery_invest_ap asi
+                WHERE
+                    asi.active_yn (+) = 'Y'
+                    AND   upper(asi.pre_or_post_op) IN (
+                        'PRE'
+                    )
+                GROUP BY
+                    surgery_id
+            ) preinvest,
+            (
+                SELECT
+                    surgery_id,
+                    dstring_agg(invest_desc) AS details
+                FROM
+                    asrim_surgery_invest_ap asi
+                WHERE
+                    asi.active_yn (+) = 'Y'
+                    AND   upper(asi.pre_or_post_op) IN (
+                        'POST'
+                    )
+                GROUP BY
+                    surgery_id
+            ) postinvest,
+            (
+                SELECT
+                    surgery_id,
+                    dstring_agg(invest_desc) AS details
+                FROM
+                    asrim_surgery_invest_ap asi
+                WHERE
+                    asi.active_yn (+) = 'Y'
+                    AND   upper(asi.pre_or_post_op) IN (
+                        'MED'
+                    )
+                GROUP BY
+                    surgery_id
+            ) medinvest
+        WHERE
+            ad.dis_main_id = ads.dis_main_id
+            AND   ad.dis_main_id = ac.dis_main_id
+            AND   ads.dis_sub_id = ac.dis_sub_id
+            AND   preinvest.surgery_id (+) = ac.surgery_id
+            AND   postinvest.surgery_id (+) = ac.surgery_id
+            AND   medinvest.surgery_id (+) = ac.surgery_id
+            AND   ac.active_yn = 'Y'
+            AND   ad.dis_active_yn = 'Y'
+            AND   PREAUTH_DISPLAY='Y'
+            AND   ac.state_flag IN (
+                'BOTH',
+                'AP',
+                'N'
+            )
+            AND   ac.surgery_id = 'M6.5'
+    ) a
+WHERE
+ a.dis_main_id = 'S13'
+  --  a.dis_main_id = 'S13'
+    --AND SURG_DISP_CODE='MR001D'
+ORDER BY procedureName
