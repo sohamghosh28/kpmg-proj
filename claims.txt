@@ -1,0 +1,20 @@
+10.48.19.62:8082/ysrempanelmentapi/initiate-claim
+
+{
+    "amountClaimed":"1000",
+    "patientType":"IP",
+    "dateOfAdmission":"2019-10-26",
+    "dateOfTreatment":"2019-10-28",
+    "dateOfDischarge":"2019-10-30",
+    "speciality":"S18",
+    "treatmentType":"Medical",
+    "remarks":"is recovered",
+    "trustId":"296811"
+}
+
+{
+    "status": true,
+    "message": "Details Saved!",
+    "result": "",
+    "statusCode": 200
+}
