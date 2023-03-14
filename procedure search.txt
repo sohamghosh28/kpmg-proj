@@ -1,0 +1,39 @@
+SELECT DISTINCT
+    c.dis_main_id AS specialitycode,
+    c.dis_main_name AS specialityname,
+    a.icd_proc_code AS proceduretype,
+    a.proc_name AS procedurename,
+    NVL(replace(treatment_evidence,',',', <br/>'), '-') as treatmentEvidence,
+    pspw_non_nabh AS priceSemiPrivateWardNonNABH,
+    ppw_non_nabh AS pricePrivateWardNonNABH
+FROM
+    ehfm_main_therapy a,
+    ehfm_specialities c,
+    (
+        SELECT
+            eti.icd_proc_code,
+            LISTAGG(invest_desc,
+            ',') WITHIN GROUP(
+            ORDER BY
+                invest_desc
+            ) AS treatment_evidence
+        FROM
+            ehfm_therapy_invest eti
+        WHERE
+            active_yn = 'Y'
+            AND   scheme_id = 'CD201'
+        GROUP BY
+            eti.icd_proc_code
+    ) eti
+WHERE
+          a.active_yn = 'Y'
+    AND   a.state = 'CD201'
+  --AND   a.asri_code = 'S4'
+    AND   c.dis_main_id = a.asri_code
+    AND   c.dis_active_yn = 'Y'
+    AND   process = 'IP'
+    AND   a.icd_proc_code = eti.icd_proc_code (+)
+    AND   pspw_non_nabh IS NOT NULL
+    
+ORDER BY
+    c.dis_main_name
