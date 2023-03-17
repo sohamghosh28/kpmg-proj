@@ -1,0 +1,827 @@
+{
+	"info": {
+		"_postman_id": "3e0ce371-b4af-4c6e-a6f8-e0619fcd255b",
+		"name": "YSR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23753283"
+	},
+	"item": [
+		{
+			"name": "Non Empanelled",
+			"item": [
+				{
+					"name": "Login Verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"vigneshsurela@gmail.com\",\r\n    \"password\": \"Vignesh@26\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8082/ysrempanelmentapi/loginverification",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8082",
+							"path": [
+								"ysrempanelmentapi",
+								"loginverification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "init Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "EMPANELeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3NTcxMTMyMCwiaWF0IjoxNjc1NjkzMzIwfQ.szWvDSDn4PnoquC9vJ7wedvv6t5hc-Alhf-QdGNUUyBu8GYLE1QdxclWqk7nm9gHDMDjCjB4LPhkkB9zsXVnXg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"trustId\":296667\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/ysrempanelmentapi/fetch-data-with-trustid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"ysrempanelmentapi",
+								"fetch-data-with-trustid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "branchlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codeValueId\":12\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/mrnonempanelmentapi/branchlist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"mrnonempanelmentapi",
+								"branchlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-ais-cashless",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "NONEMPNLeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3NDIxMjI2MywiaWF0IjoxNjc0MTk0MjYzfQ.eoNKQupLXPUq0j_iGpqhlA5O-IWJqYkbXU2tNy9-Ela9H6XP97-41bE_WkYURYQPVX-jivtuQs1I_ZRyC9wABw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\":100200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/mrnonempanelmentapi/search-ais-cashless",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"mrnonempanelmentapi",
+								"search-ais-cashless"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-hospital-mapping",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "EMPANELeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3NTE4ODQ0NSwiaWF0IjoxNjc1MTcwNDQ1fQ.E65yEbCdVMMi77wL0zlnf1aCaQBC8NxXEEY2J5GtJA2YSYOCtYryMP2iW348JJlq_JL_JRPU5nt2nwFTVkQMDg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\r\n    \"hospRegId\":48\r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8081/ysrempanelmentapi/fetch/inbox",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8081",
+							"path": [
+								"ysrempanelmentapi",
+								"fetch",
+								"inbox"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savefinancialdetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "enctype",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/harishb1/Downloads/Degree Certificate (1).png"
+								},
+								{
+									"key": "hospitalBasicInfoDTO",
+									"value": "{\"hospitalOwnershipType\":\"Private\",\"bankName\":\"SBI\",\"branchName\":\"Delhi\",\"hospitalPan\":\"BROPV3877Q\",\"ifscCode\":\"SBIN199012S\",\"bankAccountType\":\"Current\",\"hospitalAccountnumber\":\"098765\",\"nameoftheAccountHolder\":\"Shyam\"}\n",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/mrnonempanelmentapi/savefinancialdetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"mrnonempanelmentapi",
+								"savefinancialdetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveHospitalBasicInfo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "enctype",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/harishb1/Downloads/Degree Certificate (1).png"
+								},
+								{
+									"key": "hospitalBasicInfoDTO",
+									"value": "{\n    \"hospitalType\": \"GOVERNMENT\",\n    \"hospitalName\": \"AAIMA\",\n    \"hospitalParentType\": \"SINGLE\",\n    \"alternateMobileNo\": \"9786238172\",\n    \"hospitalEmailId\": \"harish25102000@gmail.com\",\n    \"hospitalPan\": \"BROPV3877Q\",\n    \"hospitalContactNumber\": \"9600362764\",\n    \"yearofEstablishment\": \"1993\",\n    \"state\": \"TELANGANA\",\n    \"district\": \"12\",\n    \"mandalOrMuncipalityName\": \"145\",\n    \"totalBedStrength\": \"100\",\n    \"hospitalAddress\": \"Siruvai\",\n    \"pinCode\": \"605652\",\n    \"mdOrCeoName\": \"Vignesh S\",\n    \"mdOrCeoMobileNumber\": \"9786238172\",\n    \"mdOrCeoAadharNumber\": \"345000633170\",\n    \"lattitude\": \"121212\",\n    \"longitude\": \"121212\"\n    }",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/mrnonempanelmentapi/saveHospitalBasicInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"mrnonempanelmentapi",
+								"saveHospitalBasicInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8081/ysrempanelmentapi/verifyEmailOtp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "NONEMPNLeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3NDQ3NDU0NywiaWF0IjoxNjc0NDU2NTQ3fQ.5Z4pVqFJh81cOxWO9nbxIxhbFrt7Na9_hkMwiO_PJ_yt8ptzh8mYx0MUG4a20ftwOYZjkaZXANYITVH1_1stxg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"test123\",\r\n    \"otp\":\"264912\",\r\n    \"emailId\":\"harish25102000@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/ysrempanelmentapi/verifyEmailOtp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ysrempanelmentapi",
+								"verifyEmailOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.48.19.62:8082/ysrempanelmentapi/emailtest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "EMPANELeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3Njk3OTMyMSwiaWF0IjoxNjc2OTYxMzIxfQ.JKAkW0ut_6buMDo4NQtJbz-t1QjdyRrVSR3PkmeBw8ct0QVHNbpuQb82j7nIALwSSArgFa8hcbljZ0cU3f2sLA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"hospitalEmailId\":\"harish25102000@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8082/ysrempanelmentapi/emailtest",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8082",
+							"path": [
+								"ysrempanelmentapi",
+								"emailtest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EHS",
+			"item": [
+				{
+					"name": "10.48.19.62:8082/ysrempanelmentapi/fetch-data-with-trustid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "EMPANELeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3NTc2NjE3NCwiaWF0IjoxNjc1NzQ4MTc0fQ.-jYqeeh7Byx7X-zR3Mf-n_0POUbH_qXV5CyAEEsqFO1_OiMZQEhGewuKiriwkVpIkdbjwdetm6CNZcCuzDU2og",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"trustId\":296667\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8082/ysrempanelmentapi/fetch-data-with-trustid",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8082",
+							"path": [
+								"ysrempanelmentapi",
+								"fetch-data-with-trustid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8082/ysrempanelmentapi/save-docs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "enctype",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "EMPANELeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWduZXNoc3VyZWxsYWFhQGdtYWlsLmNvbSIsImV4cCI6MTY3NjMwNTcxMCwiaWF0IjoxNjc2Mjg3NzEwfQ.clQv6xAuVnianjojGM1AxbDWnI1Q9UtLyAmBFHKTTitMyYN3_X4b8Jqwo6k5GabgtS4IEDhAehD1vaXxc7mv-w",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/harishb1/Downloads/TF_01_Impact.pdf"
+								},
+								{
+									"key": "payloadDTOList",
+									"value": "[\n  {\n    \"docId\": \"1\",\n    \"trustId\": \"296661\"\n  }\n]",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8082/ysrempanelmentapi/save-docs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"ysrempanelmentapi",
+								"save-docs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "datafetch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ddoId\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8085/ehsapi/datafetch",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"datafetch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "beneficiaryremarks",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"beneficiaryId\" : \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8085/ehsapi/beneficiaryremarks",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"beneficiaryremarks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "beneficiarysearchbyid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeId\": \"Yukta1234567\",\r\n    \"ddoId\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8085/ehsapi/beneficiarysearchbyid",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"beneficiarysearchbyid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "beneficiarysetstatus",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\" : \"11\",\r\n    \"remarks\": \"Verified\",\r\n    \"beneficiaryId\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8085/ehsapi/beneficiarysetstatus",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"beneficiarysetstatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "beneficiarysearchbydaterange",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startDate\": \"01/03/2023\",\r\n  \"endDate\": \"07/03/2023\",\r\n  \"ddoId\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8085/ehsapi/beneficiarysearchbydaterange",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"beneficiarysearchbydaterange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "beneficiarydatafetch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ddoId\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8085/ehsapi/beneficiarydatafetch",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"beneficiarydatafetch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendotp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"role\": \"2\",\r\n  \"userId\": \"105\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8085/ehsapi/sendotp",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"sendotp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validateotp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"105\",\r\n  \"otp\":\"119036\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8085/ehsapi/validateotp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"ehsapi",
+								"validateotp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatepassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"role\": \"2\",\r\n  \"userId\": \"105\",\r\n  \"newPassword\": \"ABCDEF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "updatepassword",
+							"host": [
+								"updatepassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PortalSearch",
+			"item": [
+				{
+					"name": "http://localhost:8091/portalsearchapi/testcaseid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caseId\" : \"AP3825261\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8091/portalsearchapi/sendotp",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8091",
+							"path": [
+								"portalsearchapi",
+								"sendotp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validateotp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caseId\" : \"AP3825261\",\r\n    \"otp\" : \"930154\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8091/portalsearchapi/validateotp",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8091",
+							"path": [
+								"portalsearchapi",
+								"validateotp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8091/portalsearchapi/testcaseid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caseId\" : \"APP12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/portalsearchapi/testcaseid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"portalsearchapi",
+								"testcaseid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.48.19.62:8091/portalsearchapi/testsms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caseId\" : \"7094787788\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "10.48.19.62:8091/portalsearchapi/testsms",
+							"host": [
+								"10",
+								"48",
+								"19",
+								"62"
+							],
+							"port": "8091",
+							"path": [
+								"portalsearchapi",
+								"testsms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
