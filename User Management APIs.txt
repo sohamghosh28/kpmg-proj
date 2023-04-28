@@ -1,0 +1,35 @@
+1.10.48.158.197:8095/usermanagementapi/user/map/initcreateuser --GET
+2.10.48.158.197:8095/usermanagementapi/user/getAllRoleListDrp --GET
+3.10.48.158.197:8095/usermanagementapi/user/usrRoleMap/init --GET
+4.10.48.158.197:8095/usermanagementapi/user/map/getDetails/1 --GET
+5.10.48.158.197:8095/usermanagementapi/user/usrRoleMap/getRoles/1 --GET
+
+6.10.48.158.197:8095/usermanagementapi/user/create-role-master --POST
+{
+    "roleId":2,
+    "roleCode":"ROLE02",
+    "name":"Developer",
+    "roledesc":"Work related to Development"
+}
+
+7.10.48.158.197:8095/usermanagementapi/user/remove-role/2 --POST
+
+8.10.48.158.197:8095/usermanagementapi/user/remove-user/2 --POST
+
+Response
+{
+    "status": true,
+    "message": "User Deleted successfully.",
+    "result": true,
+    "statusCode": null
+}
+
+9.10.48.158.197:8095/usermanagementapi/user/usrRoleMap/remove/1/1/2 --GET
+
+Response
+{
+    "status": true,
+    "message": "Data removed successfully.",
+    "result": 1,
+    "statusCode": null
+}
