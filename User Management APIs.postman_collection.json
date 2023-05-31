@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "f5754544-f4a1-465e-aa92-f43d1d5171a9",
+		"name": "User Management APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8095/usermanagementapi/user/map/initcreateuser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/map/initcreateuser",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"map",
+						"initcreateuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/getAllRoleListDrp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/getAllRoleListDrp",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"getAllRoleListDrp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/usrRoleMap/init",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/usrRoleMap/init",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"usrRoleMap",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/map/getDetails/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/map/getDetails/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"map",
+						"getDetails",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/usrRoleMap/getRoles/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/usrRoleMap/getRoles/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"usrRoleMap",
+						"getRoles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/create-role-master",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roleId\":2,\r\n    \"roleCode\":\"ROLE02\",\r\n    \"name\":\"Developer\",\r\n    \"roledesc\":\"Work related to Development\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/create-role-master",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"create-role-master"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/remove-role/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/remove-role/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"remove-role",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/remove-user/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uId\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/remove-user/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"remove-user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/usrRoleMap/remove/1/1/2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/usrRoleMap/remove/1/1/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"usrRoleMap",
+						"remove",
+						"1",
+						"1",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/roleMenuRightMap/save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"rightId\": 1,\r\n    \"roleId\": 1,\r\n    \"menuId\": 1,\r\n    \"isView\": true,\r\n    \"isEdit\": true,\r\n    \"isDownload\": true,\r\n    \"createdBy\": 2,\r\n    \"isActive\": true,\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/roleMenuRightMap/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"roleMenuRightMap",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/roleMenuRightMap/init/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/roleMenuRightMap/init/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"roleMenuRightMap",
+						"init",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/getAllDesignationList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/getAllDesignationList",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"getAllDesignationList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/create-desig",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Analyst\",\r\n    \"code\":\"Desgn2\",\r\n    \"createdBy\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/create-desig",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"create-desig"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/remove-desig/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/remove-desig/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"remove-desig",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/deprtment/init",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/deprtment/init",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"deprtment",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8095/usermanagementapi/user/parentDptntList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8095/usermanagementapi/user/parentDptntList",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"usermanagementapi",
+						"user",
+						"parentDptntList"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
