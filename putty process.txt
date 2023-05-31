@@ -1,0 +1,57 @@
+cd /opt/portal.api/
+ls
+ps aux|grep java
+kill "port"
+netstat -tlnp -- to know the running ports 
+nohup java -jar ARportalsearchapi.jar &
+login as root
+password Ku5t26adYTrJ2
+systemctl start tomcat -- to restart tomcat
+chmod 777 nohup.out ---to show errors exit 1 in putty
+df -h --- to see memory status in server
+
+Prod
+hostname 10.48.19.54
+sudo su - for root
+ps -ef | grep java to find process id
+
+Pre-Prod
+10.48.19.62
+kpmg 
+WvxFR!gx@q*st5
+
+React-war creation 
+npm run compile
+cp maptest.war /opt/apache-tomcat-7.0.90/webapps -- 10.48.19.54
+cp maptest.war /opt/apache-tomcat-9.0.65/webapps --10.48.19.62
+/opt/tomcat/apache-tomcat-9.0.73/webapps -- 10.48.158.197
+7.0.90-- 203 server
+
+"username": "vigneshsurellaaa@gmail.com",/aditi.pruthi28@gmail.com
+    "password": "96003B7783VPORB"/97542H3270PPFQB
+}
+
+palo alto vpn
+Portal address:-115.124.110.166
+username:-ap_c330/4428_suvam
+pwd:-Zw39SLgW/G8HM2HENB7
+
+ESDS vPN Dev env
+Portal address:-115.124.114.31
+Username:-Subhadeep_admin
+pwd:-Admi#%9845NIG
+
+public IP :-115.124.114.53
+Winscp
+private IP:- 10.48.158.197
+kpmg
+?UR7evGWmU3Kt!
+5522
+
+development server https
+10.9.39.203
+kpmg
+&cK34CM]g3h+~A
+
+postgresql
+5432
